@@ -91,6 +91,20 @@ cabal configure <package-name> --ghc-options="-Wwarn"
 cabal build <package-name>
 ```
 
+## Publishing specifications
+Pdf specs are stored as attachments to [github releases](https://github.com/input-output-hk/cardano-ledger/releases)
+We can create a release that builds and attaches the latest specs, by triggering the [push-docs github action](https://github.com/input-output-hk/cardano-ledger/blob/master/.github/workflows/push-specs.yml).
+This github action can be triggered by pushing a tag of the pattern: `cardano-ledger-spec-YYYY-MM-DD`, for example: `cardano-ledger-spec-2023-01-17`
+
+For example, if we decide it's time to publish new versions of docs,
+we can do the following to publish the pdfs under release `cardano-ledger-spec-2023-03-21`:
+```
+git tag cardano-ledger-spec-2023-03-21
+git push origin cardano-ledger-spec-2023-03-21
+```
+
+This will create a new release that will be available as [latest](https://github.com/input-output-hk/cardano-ledger/releases/latest).
+
 ## Testing the Haskell programs
 
 The tests can be run with cabal.
