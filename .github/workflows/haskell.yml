@@ -240,7 +240,8 @@ jobs:
           username: ghnotifications.cardano.ledger@gmail.com
           password: ${{ secrets.NOTIFICATIONS_EMAIL_PASSWORD }}
           subject: ${{ github.repository }} - Nightly build failed
-          body: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          body: |
+            Nightly Github Actions build failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           # comma-separated string, send email to
           to: teodora.danciu@iohk.io
