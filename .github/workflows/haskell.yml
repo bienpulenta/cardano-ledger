@@ -220,3 +220,25 @@ jobs:
         run: nix-build
       - name: nix-shell
         run: nix-shell shell.nix
+
+  notify-nightly-failure:
+    name: Send an email to the team if the nightly build failed
+    # if:  |
+    #       ${{ failure() }} && ${{ github.event_name == 'schedule'}}
+    if:  |
+         ${{ github.event_name == 'workflow_dispatch'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          # user credentials
+          username: ghnotifications.cardano.ledger@gmail.com
+          password: ${{ secrets.NOTIFICATIONS_EMAIL_PASSWORD }}
+          subject: ${{ github.repository }} - Nightly build failed
+          body: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+          # comma-separated string, send email to
+          to: teodora.danciu@iohk.io
+          from: ghnotifications.cardano.ledger@gmail.com
